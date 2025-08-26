@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Artikel extends Model
 {
@@ -22,8 +23,25 @@ class Artikel extends Model
         'published_at',
         'meta_title',
         'meta_description',
-        'created_at',
-        'updated_at',
     ];
 
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
+
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::creating(function ($artikel) {
+            if (empty($artikel->slug)) {
+                $artikel->slug = Str::slug($artikel->title);
+            }
+        });
+    }
 }

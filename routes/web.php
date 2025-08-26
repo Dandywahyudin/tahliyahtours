@@ -24,7 +24,13 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('artikel', ArtikelController::class);
+    Route::get('/artikels', [ArtikelController::class, 'index'])->name('artikels.index');
+    Route::get('/artikels/create', [ArtikelController::class, 'create'])->name('artikels.create');
+    Route::post('/artikels', [ArtikelController::class, 'store'])->name('artikels.store');
+    Route::get('/artikels/{artikel}', [ArtikelController::class, 'show'])->name('artikels.show');
+    Route::get('/artikels/{artikel}/edit', [ArtikelController::class, 'edit'])->name('artikels.edit');
+    Route::put('/artikels/{artikel}', [ArtikelController::class, 'update'])->name('artikels.update');
+    Route::delete('/artikels', [ArtikelController::class, 'destroy'])->name('artikels.destroy');
 
 });
 

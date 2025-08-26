@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Artikel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
-
+use Inertia\Response;
 class ArtikelController extends Controller
 {
     public function index()
@@ -22,32 +24,46 @@ class ArtikelController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:artikels,slug',
-            'excerpt' => 'required|string|max:255',
-            'content' => 'required|string',
-            'category' => 'required|string|max:255',
-            'thumbnail' => 'nullable|image|max:2048',
-            'author_id' => 'required|exists:users,id',
-            'status' => 'required|in:draft,published',
-            'published_at' => 'nullable|date',
-            'meta_title' => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string|max:255',
-        ]);
+        try {
+            $validated = $request->validate([
+                'title' => 'required|string|max:255',
+                'excerpt' => 'required|string|max:255',
+                'content' => 'required|string',
+                'category' => 'required|string|max:255',
+                'thumbnail' => 'nullable|image|max:2048',
+                'status' => 'required|in:draft,published',
+                'published_at' => 'nullable|date',
+                'meta_title' => 'nullable|string|max:255',
+                'meta_description' => 'nullable|string|max:255',
+            ]);
 
-        $artikel = new Artikel($request->all());
-        $artikel->slug = Str::slug($request->title);
-        $artikel->author_id = \Illuminate\Support\Facades\Auth::user()->id;
+            // Set author_id to current authenticated user
+            $validated['author_id'] = Auth::id();
+            
+            // Generate slug from title
+            $validated['slug'] = Str::slug($validated['title']);
 
-        if ($request->hasFile('thumbnail')) {
-            $path = $request->file('thumbnail')->store('thumbnails', 'public');
-            $artikel->thumbnail = $path;
+            // Handle file upload
+            if ($request->hasFile('thumbnail')) {
+                $path = $request->file('thumbnail')->store('thumbnails', 'public');
+                $validated['thumbnail'] = $path;
+            }
+
+            // Convert published_at if status is published and no date set
+            if ($validated['status'] === 'published' && empty($validated['published_at'])) {
+                $validated['published_at'] = now();
+            }
+
+            $artikel = Artikel::create($validated);
+
+            return redirect()->route('artikels.index')->with('success', 'Artikel berhasil ditambahkan.');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return back()->withErrors($e->errors())->withInput();
+        } catch (\Exception $e) {
+            Log::error('Error creating artikel: ' . $e->getMessage());
+            return back()->withErrors(['message' => 'Terjadi kesalahan: ' . $e->getMessage()])->withInput();
         }
-        $artikel->save();
-
-        return redirect()->route('artikel.index');
     }
 
     public function edit(Artikel $artikel)
@@ -74,12 +90,12 @@ class ArtikelController extends Controller
 
         $artikel->save();
 
-        return redirect()->route('artikel.index');
+        return redirect()->route('artikels.index');
     }
 
     public function destroy(Artikel $artikel)
     {
         $artikel->delete();
-        return redirect()->route('artikel.index');
+        return redirect()->route('artikels.index');
     }
 }

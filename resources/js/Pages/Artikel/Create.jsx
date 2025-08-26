@@ -16,9 +16,58 @@ export default function Create() {
         meta_description: '',
     });
 
+    // Auto generate slug dari title
+    function generateSlug(title) {
+        return title
+            .toLowerCase()
+            .replace(/[^a-z0-9 -]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-')
+            .trim('-');
+    }
+
+    function handleTitleChange(e) {
+        const title = e.target.value;
+        setData('title', title);
+        
+        // Auto generate slug jika slug kosong
+        if (!data.slug || data.slug === generateSlug(data.title)) {
+            setData('slug', generateSlug(title));
+        }
+    }
+
     function submit(e) {
         e.preventDefault();
-        post(route('artikel.store'));
+        
+        // Create FormData untuk handle file upload
+        const formData = new FormData();
+        
+        // Append semua field
+        Object.keys(data).forEach(key => {
+            if (data[key] !== null && data[key] !== '') {
+                formData.append(key, data[key]);
+            }
+        });
+
+        post(route('artikels.store'), {
+            data: formData,
+            forceFormData: true,
+            onSuccess: () => {
+                // Reset form after success
+                setData({
+                    title: '',
+                    slug: '',
+                    excerpt: '',
+                    content: '',
+                    category: '',
+                    thumbnail: null,
+                    status: 'draft',
+                    published_at: '',
+                    meta_title: '',
+                    meta_description: '',
+                });
+            }
+        });
     }
 
     return (
@@ -32,6 +81,11 @@ export default function Create() {
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 bg-white border-b border-gray-200">
                             <form onSubmit={submit}>
+                                {errors.message && (
+                        <div className="mb-4 text-red-600 bg-red-100 p-3 rounded">
+                            {errors.message}
+                        </div>
+                    )}
                                 {/* Title */}
                                 <div className="mb-4">
                                     <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="title">
@@ -42,7 +96,7 @@ export default function Create() {
                                         id="title"
                                         type="text"
                                         value={data.title}
-                                        onChange={(e) => setData('title', e.target.value)}
+                                        onChange={handleTitleChange}
                                     />
                                     {errors.title && <div className="text-red-500 text-xs italic">{errors.title}</div>}
                                 </div>
@@ -103,10 +157,11 @@ export default function Create() {
                                 </div>
                                 {/* Thumbnail */}
                                 <div className="mb-4">
-                                    <label className="text-gray-700 text-sm font-bold mb-2" htmlFor="thumbnail">
+                                    <label  className="text-gray-700 text-sm font-bold mb-2" htmlFor="thumbnail">
                                         Thumbnail
                                     </label>
                                     <input
+                                        id="thumbnail"
                                         type="file"
                                         onChange={(e) => setData('thumbnail', e.target.files[0])}
                                     />
