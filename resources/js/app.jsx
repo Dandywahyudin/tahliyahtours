@@ -7,6 +7,23 @@ import { createRoot } from 'react-dom/client';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
+// Simple image preloading function
+const preloadCriticalImages = () => {
+  if (typeof window !== 'undefined') {
+    const imagesToPreload = ['/images/caraousel1.png', '/images/logo.png'];
+    imagesToPreload.forEach(src => {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = src;
+      document.head.appendChild(link);
+    });
+  }
+};
+
+// Preload critical images
+preloadCriticalImages();
+
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) =>
@@ -20,6 +37,7 @@ createInertiaApp({
         root.render(<App {...props} />);
     },
     progress: {
-        color: '#4B5563',
+        color: '#ea580c',
+        showSpinner: true,
     },
 });

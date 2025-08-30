@@ -27,15 +27,15 @@ const defaultGuides = [
   },
   {
     id: 3,
-    name: "Ust. Gungun Syihabuddin, LC",
+    name: "Dr. H. Aang Ridwan, M.Ag",
     title: "Pembimbing Haji",
     experience: "18 Tahun",
     rating: 4.9,
     image: pembimbing3,
-  },
-  {
+},
+{
     id: 4,
-    name: "Dr. H. Aang Ridwan, M.Ag",
+    name: "Ust. Gungun Syihabuddin, LC",
     title: "Doktor Agama",
     experience: "20 Tahun",
     rating: 5.0,

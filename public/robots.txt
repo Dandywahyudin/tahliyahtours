@@ -1,2 +1,19 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# Allow CSS and JS files
+Allow: /css/
+Allow: /js/
+Allow: /images/
+
+# Block admin and sensitive areas
+Disallow: /admin/
+Disallow: /login
+Disallow: /api/
+Disallow: /*.json$
+
+# Sitemap
+Sitemap: /sitemap.xml
+
+# Crawl delay (optional, helps with server load)
+Crawl-delay: 1

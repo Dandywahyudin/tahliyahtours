@@ -78,13 +78,19 @@ export default function Index({ artikels }) {
                                                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                             <div className="flex justify-end space-x-2">
                                                                 <Link 
-                                                                    href={route('artikels.edit', artikel.id)} 
+                                                                    href={route('artikels.show', artikel.slug)} 
+                                                                    className="text-blue-600 hover:text-blue-900 font-medium"
+                                                                >
+                                                                    Lihat
+                                                                </Link>
+                                                                <Link 
+                                                                    href={route('artikels.edit', artikel.slug)} 
                                                                     className="text-indigo-600 hover:text-indigo-900 font-medium"
                                                                 >
                                                                     Edit
                                                                 </Link>
                                                                 <Link 
-                                                                    href={route('artikels.destroy', artikel.id)} 
+                                                                    href={route('artikels.destroy', artikel.slug)} 
                                                                     method="delete"
                                                                     as="button"
                                                                     className="text-red-600 hover:text-red-900 font-medium"
@@ -130,15 +136,21 @@ export default function Index({ artikels }) {
                                                     <span>Author: {artikel.author ? artikel.author.name : 'N/A'}</span>
                                                 </div>
                                                 
-                                                <div className="flex space-x-3">
+                                                <div className="flex space-x-2">
                                                     <Link 
-                                                        href={route('artikels.edit', artikel.id)} 
+                                                        href={route('artikels.show', artikel.slug)} 
+                                                        className="flex-1 text-center px-3 py-2 text-sm font-medium text-blue-600 bg-blue-50 rounded-md hover:bg-blue-100 transition-colors duration-200"
+                                                    >
+                                                        Lihat
+                                                    </Link>
+                                                    <Link 
+                                                        href={route('artikels.edit', artikel.slug)} 
                                                         className="flex-1 text-center px-3 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-md hover:bg-indigo-100 transition-colors duration-200"
                                                     >
                                                         Edit
                                                     </Link>
                                                     <Link 
-                                                        href={route('artikels.destroy', artikel.id)} 
+                                                        href={route('artikels.destroy', artikel.slug)} 
                                                         method="delete"
                                                         as="button"
                                                         className="flex-1 text-center px-3 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-md hover:bg-red-100 transition-colors duration-200"
