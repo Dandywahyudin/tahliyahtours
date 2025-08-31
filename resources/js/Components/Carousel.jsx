@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Button } from "../components/ui/button";
+import { Button } from "../Components/ui/Button";
 import image1 from "../../../public/images/caraousel1.png";
 import image2 from "../../../public/images/caraousel2.jpg";
 import image3 from "../../../public/images/caraousel3.png";

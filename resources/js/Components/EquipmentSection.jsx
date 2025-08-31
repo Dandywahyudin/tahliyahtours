@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
-import { Button } from '../components/ui/button';
+import { Button } from '../Components/ui/Button';
 
 const galleryItems = [
   {

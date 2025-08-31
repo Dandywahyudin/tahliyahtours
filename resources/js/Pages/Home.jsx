@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { Head, Link } from "@inertiajs/react"
 import { Card, CardContent } from "../Components/ui/Card"
-import { Button } from "../Components/ui/button"
+import { Button } from "../Components/ui/Button"
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import EquipmentSection from "../Components/EquipmentSection";

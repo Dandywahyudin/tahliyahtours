@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import pembimbing1 from "../../../public/images/pembimbing1.jpg";
+import pembimbing1 from "../../../public/images/Pembimbing1.jpg";
 import pembimbing2 from "../../../public/images/Pembimbing2.jpg";
 import pembimbing3 from "../../../public/images/Pembimbing3.jpg";
 import pembimbing4 from "../../../public/images/Pembimbing4.jpg";

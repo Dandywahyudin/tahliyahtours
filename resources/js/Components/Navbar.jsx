@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "@inertiajs/react";
-import { Button } from "../components/ui/button";
+import { Button } from "../Components/ui/Button";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 export default function Navbar({ scrollToSection, handleContactClick }) {

@@ -1,1 +1,0 @@
-import{j as s}from"./motion-BlS7vM2x.js";function e(e){return s.jsx("div",{className:"flex items-center justify-center",children:s.jsx("img",{src:"/build/assets/logo-wmLpeQ0x.png",alt:"Tahliyah Tours",...e,className:"w-16 h-16 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain"})})}export{e as A};
