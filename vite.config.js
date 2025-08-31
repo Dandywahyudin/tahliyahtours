@@ -16,23 +16,58 @@ export default defineConfig({
             '@': resolve(__dirname, 'resources/js'),
         },
     },
+    // build: {
+    //     // Optimizations for production
+    //     minify: 'terser',
+    //     terserOptions: {
+    //         compress: {
+    //             drop_console: true,
+    //             drop_debugger: true,
+    //         },
+    //     },
+    //     rollupOptions: {
+    //         output: {
+    //             manualChunks: {
+    //                 vendor: ['react', 'react-dom'],
+    //                 motion: ['motion/react'],
+    //                 inertia: ['@inertiajs/react'],
+    //             },
+    //         },
+    //     },
+    //     // Enable source maps for debugging but optimize for size
+    //     sourcemap: false,
+    //     // Reduce chunk size warnings
+    //     chunkSizeWarningLimit: 1000,
+    // },
+    // Enable gzip compression
+
     build: {
-        manifest: true,
-        rollupOptions: {
-            output: {
-                manualChunks: {
-                    vendor: ['react', 'react-dom'],
-                    motion: ['motion/react'],
-                    inertia: ['@inertiajs/react'],
-                },
+    outDir: 'public/build',
+    manifest: true,
+    minify: 'terser',
+    terserOptions: {
+        compress: {
+            drop_console: true,
+            drop_debugger: true,
+        },
+    },
+    rollupOptions: {
+        output: {
+            manualChunks: {
+                vendor: ['react', 'react-dom'],
+                motion: ['motion/react'],
+                inertia: ['@inertiajs/react'],
             },
         },
-        sourcemap: false,
-        chunkSizeWarningLimit: 1000,
     },
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000,
+},
+
     server: {
         compress: true,
     },
+    // Optimize dependencies
     optimizeDeps: {
         include: ['react', 'react-dom', 'motion/react', '@inertiajs/react'],
     },

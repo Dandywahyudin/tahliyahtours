@@ -136,7 +136,7 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
     scrollToSection("contact")
   }
 
-  const displayPackages = packages.length > 0 ? packages : defaultPackages
+  // const displayPackages = packages.length > 0 ? packages : defaultPackages
   const displayArticles = articles.length > 0 ? articles : defaultArticles
 
   const formatDate = (dateString) => {
