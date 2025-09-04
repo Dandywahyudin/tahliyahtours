@@ -67,7 +67,6 @@ export default defineConfig({
     server: {
         compress: true,
     },
-    // Optimize dependencies
     optimizeDeps: {
         include: ['react', 'react-dom', 'motion/react', '@inertiajs/react'],
     },

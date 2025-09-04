@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react"
 import { Head, Link } from "@inertiajs/react"
-import { Card, CardContent } from "../Components/ui/Card"
 import { Button } from "../Components/ui/Button"
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
@@ -10,6 +9,7 @@ import EquipmentSection from "../Components/EquipmentSection";
 import Carousel from "../Components/Carousel";
 import MentorSection from "../Components/MentorSection";
 import AboutMe from "../Components/AboutMe";
+import { Card, CardContent } from "../Components/ui/Card";
 
 import {
   Phone,
@@ -132,12 +132,8 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
   }
 
   const handleContactClick = () => {
-    // For future implementation - could navigate to contact page or open modal
     scrollToSection("contact")
   }
-
-  // const displayPackages = packages.length > 0 ? packages : defaultPackages
-  const displayArticles = articles.length > 0 ? articles : defaultArticles
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('id-ID', {
@@ -147,12 +143,17 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
     });
   };
 
-  // Function untuk membuka preview gambar
-  const openImagePreview = (imageSrc, title) => {
-    setPreviewImage({ src: imageSrc, title });
+  const openImagePreview = (imageSrc, packageData) => {
+    setPreviewImage({ 
+      src: imageSrc, 
+      title: packageData.title,
+      description: packageData.description,
+      price: packageData.price,
+      duration: packageData.duration,
+      rating: packageData.rating
+    });
   };
 
-  // Function untuk menutup preview gambar
   const closeImagePreview = () => {
     setPreviewImage(null);
   };
@@ -172,25 +173,25 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
   // Package slider functions
   const nextPackageSlide = () => {
     const cardsPerSlide = isMobile ? 1 : 4; // 4 on desktop, 1 on mobile
-    const maxIndex = Math.max(0, displayPackages.length - cardsPerSlide);
+    const maxIndex = Math.max(0, packages.length - cardsPerSlide);
     setPackageSliderIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   const prevPackageSlide = () => {
     const cardsPerSlide = isMobile ? 1 : 4;
-    const maxIndex = Math.max(0, displayPackages.length - cardsPerSlide);
+    const maxIndex = Math.max(0, packages.length - cardsPerSlide);
     setPackageSliderIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
   // Auto slide for packages (optional)
   useEffect(() => {
-    if (displayPackages.length > 2) {
+    if (packages.length > 2) {
       const interval = setInterval(() => {
         nextPackageSlide();
       }, 5000); // Auto slide every 5 seconds
       return () => clearInterval(interval);
     }
-  }, [displayPackages.length, isMobile]);
+  }, [packages.length, isMobile]);
 
   return (
     <>
@@ -223,7 +224,7 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
             {/* Package Slider Container */}
             <div className="relative max-w-6xl mx-auto">
               {/* Navigation Buttons */}
-              {displayPackages.length > (isMobile ? 1 : 4) && (
+              {packages.length > (isMobile ? 1 : 4) && (
                 <>
                   <button
                     onClick={prevPackageSlide}
@@ -249,79 +250,106 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
                   }}
                   ref={packageSliderRef}
                 >
-                  {displayPackages.map((pkg, index) => (
+                  {packages.map((pkg, index) => (
                     <div
                       key={pkg.id}
-                      className="w-full md:w-1/4 flex-shrink-0 px-1.5 md:px-2" // 4 columns on desktop, smaller padding
+                      className="w-full md:w-1/4 flex-shrink-0 px-1.5 md:px-2"
                     >
                       <div
                         id={`package-${index}`}
                         data-animate
-                        className={`relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-105 group h-full transform-gpu cursor-pointer ${
+                        className={`bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] group transform-gpu cursor-pointer overflow-hidden ${
                           visibleElements.has(`package-${index}`) ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-12 scale-95"
                         }`}
                         style={{ 
                           transitionDelay: `${(index % 4) * 100}ms`,
-                          willChange: 'transform, opacity'
+                          willChange: 'transform, opacity',
+                          minHeight: '480px' // Consistent height for all cards
                         }}
                         onClick={() => openImagePreview(
                           pkg.thumbnail ? `/storage/${pkg.thumbnail}` : "/placeholder.svg", 
-                          pkg.title
+                          pkg
                         )}
                       >
-                        {/* Card content with portrait aspect ratio */}
-                        <div className="aspect-[2/3] relative">
-                          <img
-                            src={pkg.thumbnail ? `/storage/${pkg.thumbnail}` : "/placeholder.svg"}
-                            alt={pkg.title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent group-hover:from-black/80 group-hover:via-black/20 transition-all duration-300"></div>
-
-                          {/* Preview Icon Overlay - shown on hover */}
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div className="bg-white/20 backdrop-blur-sm text-white p-4 rounded-full border border-white/30">
-                            </div>
-                          </div>
-
-                          {/* Preview hint text */}
-                          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <div className="bg-black/50 text-white px-2 py-1 rounded text-xs">
-                              Click to preview
-                            </div>
-                          </div>
-
-                          <div className="absolute bottom-2 left-2 right-2">
-                            <h3 className="text-xl font-bold text-white mb-1 line-clamp-2 leading-tight">{pkg.title}</h3>
-                            <p className="text-white/90 mb-2 text-sm leading-relaxed line-clamp-2">{pkg.description}</p>
-
-                            <div className="space-y-2 mb-3">
-                              <div className="flex items-center justify-between text-xs">
-                                <div className="flex items-center space-x-1">
-                                  <Clock className="h-3 w-3 text-white/80" />
-                                  <span className="text-white/80">{pkg.duration} Hari</span>
+                        {/* Modern Card Layout */}
+                        <div className="flex flex-col h-full">
+                          {/* Image Section */}
+                          <div className="relative h-100 overflow-hidden">
+                            <img
+                              src={pkg.thumbnail ? `/storage/${pkg.thumbnail}` : "/placeholder.svg"}
+                              alt={pkg.title}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                            />
+                            
+                            {/* Gradient overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            
+                            {/* Rating badge */}
+                            {pkg.rating && (
+                              <div className="absolute top-4 left-4">
+                                <div className="bg-white/95 backdrop-blur-sm px-3 py-1 rounded-full flex items-center space-x-1 shadow-lg">
+                                  <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                                  <span className="text-gray-900 font-semibold text-sm">{pkg.rating}/5</span>
                                 </div>
-                                {pkg.rating && (
-                                  <div className="flex items-center space-x-1">
-                                    <Star className="h-3 w-3 text-yellow-400 fill-current" />
-                                    <span className="text-white font-medium text-sm">{pkg.rating}/5</span>
-                                  </div>
-                                )}
                               </div>
-                              <div className="text-right">
-                                <p className="text-orange-300 text-xl font-bold">Rp. {new Intl.NumberFormat('id-ID').format(pkg.price)}</p>
+                            )}
+                            
+                            {/* Preview hint */}
+                            <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              <div className="bg-orange-600/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-medium">
+                                Klik untuk detail
                               </div>
                             </div>
-
-                            <Button 
-                              className="w-full bg-white text-gray-900 hover:bg-gray-100 font-semibold py-1.5 text-xs rounded-lg transition-all duration-300 hover:scale-105"
+                            
+                            {/* Price overlay */}
+                            <div className="absolute bottom-4 right-4">
+                              <div className="bg-white/95 backdrop-blur-sm px-3 py-2 rounded-xl shadow-lg">
+                                <p className="text-orange-600 font-bold text-lg leading-none">
+                                  Rp {Number(pkg.price).toLocaleString('id-ID')}
+                                </p>
+                                <p className="text-gray-500 text-xs">per orang</p>
+                              </div>
+                            </div>
+                          </div>
+                          
+                          {/* Content Section */}
+                          <div className="flex-1 p-5 flex flex-col">
+                            {/* Title */}
+                            <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight">
+                              {pkg.title}
+                            </h3>
+                            
+                            {/* Duration */}
+                            <div className="flex items-center text-gray-500 mb-3">
+                              <Clock className="h-4 w-4 mr-2" />
+                              <span className="text-sm">{pkg.duration} Hari</span>
+                            </div>
+                            
+                            {/* Description - Better spacing and truncation */}
+                            <div className="flex-1 mb-4">
+                              <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">
+                                {pkg.description}
+                              </p>
+                              {pkg.description && pkg.description.length > 120 && (
+                                <p className="text-orange-600 text-xs mt-2 font-medium">
+                                  Klik untuk melihat detail lengkap
+                                </p>
+                              )}
+                            </div>
+                            
+                            {/* CTA Button */}
+                            <button 
+                              className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:scale-[1.02] flex items-center justify-center space-x-2 mt-auto"
                               onClick={(e) => {
-                                e.stopPropagation(); // Prevent card click event
-                                open("https://wa.me/6289676468999?text=Halo%20TahliyahTour%2C%20saya%20ingin%20reservasi%20");
+                                e.stopPropagation();
+                                window.open(`https://wa.me/6289676468999?text=Halo%20TahliyahTour%2C%20saya%20tertarik%20dengan%20paket%20${encodeURIComponent(pkg.title)}`, '_blank');
                               }}
                             >
-                              Reservasi
-                            </Button>
+                              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                              </svg>
+                              <span>Konsultasi Sekarang</span>
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -331,10 +359,10 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
               </div>
 
               {/* Slider Indicators */}
-              {displayPackages.length > (isMobile ? 1 : 4) && (
+              {packages.length > (isMobile ? 1 : 4) && (
                 <div className="flex justify-center space-x-2 mt-8">
                   {Array.from({ 
-                    length: Math.max(1, displayPackages.length - (isMobile ? 0 : 3)) 
+                    length: Math.max(1, packages.length - (isMobile ? 0 : 3)) 
                   }, (_, index) => (
                     <button
                       key={index}
@@ -369,7 +397,7 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              {displayArticles.map((article, index) => (
+              {articles.map((article, index) => (
                 <Card
                   key={article.id}
                   id={`article-${index}`}
@@ -430,34 +458,101 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
           <Footer />
       </div>
 
-      {/* Image Preview Modal */}
+      {/* Package Preview Modal - Enhanced */}
       {previewImage && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
           onClick={closeImagePreview}
         >
-          <div className="relative max-w-4xl max-h-full">
+          <div className="relative max-w-5xl w-full max-h-[95vh] bg-white rounded-2xl shadow-2xl overflow-hidden">
             {/* Close Button */}
             <button
               onClick={closeImagePreview}
-              className="absolute -top-10 right-0 text-white hover:text-gray-300 transition-colors duration-200 z-10"
+              className="absolute top-4 right-4 z-20 bg-black/50 hover:bg-black/70 text-white rounded-full p-2 transition-colors duration-200"
             >
-              <X className="w-8 h-8" />
+              <X className="w-6 h-6" />
             </button>
             
-            {/* Image */}
-            <img
-              src={previewImage.src}
-              alt={previewImage.title}
-              className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
-              onClick={(e) => e.stopPropagation()}
-            />
-            
-            {/* Title */}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 rounded-b-lg">
-              <h3 className="text-white text-xl font-bold text-center">
-                {previewImage.title}
-              </h3>
+            <div className="flex flex-col lg:flex-row h-full max-h-[95vh]">
+              {/* Image Section */}
+              <div className="lg:w-2/3 relative">
+                <img
+                  src={previewImage.src}
+                  alt={previewImage.title}
+                  className="w-full h-64 lg:h-full object-cover"
+                  onClick={(e) => e.stopPropagation()}
+                />
+                {/* Image Overlay for mobile */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden"></div>
+              </div>
+              
+              {/* Content Section */}
+              <div className="lg:w-1/3 p-6 lg:p-8 overflow-y-auto">
+                {/* Title */}
+                <h2 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                  {previewImage.title}
+                </h2>
+                
+                {/* Rating & Duration */}
+                <div className="flex flex-wrap items-center gap-4 mb-6">
+                  {previewImage.rating && (
+                    <div className="flex items-center bg-orange-100 px-3 py-1 rounded-full">
+                      <Star className="w-4 h-4 text-orange-400 fill-current mr-1" />
+                      <span className="text-orange-600 font-medium text-sm">
+                        {previewImage.rating}/5
+                      </span>
+                    </div>
+                  )}
+                  {previewImage.duration && (
+                    <div className="flex items-center bg-gray-100 px-3 py-1 rounded-full">
+                      <Clock className="w-4 h-4 text-gray-600 mr-1" />
+                      <span className="text-gray-600 font-medium text-sm">
+                        {previewImage.duration} Hari
+                      </span>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Full Description */}
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Detail Paket</h3>
+                  <div className="text-gray-700 leading-relaxed whitespace-pre-line">
+                    {previewImage.description}
+                  </div>
+                </div>
+                
+                {/* Price */}
+                {previewImage.price && (
+                  <div className="bg-orange-50 rounded-lg p-4 mb-6">
+                    <div className="text-center">
+                      <p className="text-gray-600 text-sm mb-1">Mulai dari</p>
+                      <p className="text-3xl font-bold text-orange-600">
+                        Rp {Number(previewImage.price).toLocaleString('id-ID')}
+                      </p>
+                      <p className="text-gray-500 text-sm">per orang</p>
+                    </div>
+                  </div>
+                )}
+                
+                {/* CTA Button */}
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => window.open('https://wa.me/6289676468999?text=Halo%20TahliyahTour%2C%20saya%20tertarik%20dengan%20paket%20' + encodeURIComponent(previewImage.title), '_blank')}
+                    className="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors duration-200 flex items-center justify-center"
+                  >
+                    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+                    </svg>
+                    Chat WhatsApp
+                  </button>
+                  <button
+                    onClick={closeImagePreview}
+                    className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-6 rounded-xl transition-colors duration-200"
+                  >
+                    Tutup
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
