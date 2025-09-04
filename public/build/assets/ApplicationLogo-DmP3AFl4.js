@@ -1,1 +1,0 @@
-import{j as s}from"./motion-DexQD9Y-.js";const t="/build/assets/logo-wmLpeQ0x.png";function o(e){return s.jsx("div",{className:"flex items-center justify-center",children:s.jsx("img",{src:t,alt:"Tahliyah Tours",...e,className:"w-16 h-16 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain"})})}export{o as A};
