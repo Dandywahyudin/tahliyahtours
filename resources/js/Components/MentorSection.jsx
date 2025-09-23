@@ -2,9 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import pembimbing1 from "../../../public/images/Pembimbing1.jpg";
 import pembimbing2 from "../../../public/images/Pembimbing2.jpg";
-import pembimbing3 from "../../../public/images/Pembimbing3.jpg";
 import pembimbing4 from "../../../public/images/Pembimbing4.jpg";
-import pembimbing5 from "../../../public/images/Pembimbing5.jpg";
 import pembimbing6 from "../../../public/images/Pembimbing6.jpg";
 import pembimbing7 from "../../../public/images/Pembimbing7.jpg";
 
@@ -27,14 +25,6 @@ const defaultGuides = [
   },
   {
     id: 3,
-    name: "Dr. H. Aang Ridwan, M.Ag",
-    title: "Pembimbing Haji",
-    experience: "18 Tahun",
-    rating: 4.9,
-    image: pembimbing3,
-},
-{
-    id: 4,
     name: "Ust. Gungun Syihabuddin, LC",
     title: "Doktor Agama",
     experience: "20 Tahun",
@@ -42,15 +32,7 @@ const defaultGuides = [
     image: pembimbing4,
   },
   {
-    id: 5,
-    name: "Dr. H. Dadan Suherdiana, M.Ag",
-    title: "Pakar Fiqh",
-    experience: "22 Tahun",
-    rating: 4.9,
-    image: pembimbing5,
-  },
-  {
-    id: 6,
+    id: 4,
     name: "Hj. Yuyun Yuningsih, Sos.I., M.Ag",
     title: "Pembimbing Wanita",
     experience: "14 Tahun",
@@ -58,7 +40,7 @@ const defaultGuides = [
     image: pembimbing6,
   },
   {
-    id: 7,
+    id: 5,
     name: "Dr. H. Rohmanur Aziz, M.Ag",
     title: "Ahli Hadits",
     experience: "25 Tahun",

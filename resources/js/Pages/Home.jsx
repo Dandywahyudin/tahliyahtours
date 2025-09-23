@@ -23,6 +23,7 @@ import {
   Heart,
   Star,
 } from "lucide-react"
+import Testimonials from "@/Components/Testimonials";
 
 const isVisible = () => true;
 
@@ -454,6 +455,7 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
         <MentorSection/>
         
         <EquipmentSection/>
+        <Testimonials/>
         {/* Footer */}
           <Footer />
       </div>

@@ -8,18 +8,18 @@ import BlurText from './BlurText';
 
 const heroSlides = [
     {
-        title: "TAHLIYAH Tours & Travel",
+        title: "Tahliyah Tours & Travel",
         subtitle: "Bimbingan Maksimal Fasilitas Optimal", 
         description: "Wujudkan impian ibadah haji dan umrah Anda bersama TahliyahTour",
         image: image1,
-        cta: "Daftar Sekarang",
+        cta: "Daftar",
         color: "from-orange-500 to-orange-600",
         accent: "text-orange-300",
     },
     {
         title: "PERJALANAN SPIRITUAL",
         subtitle: "Yang Berkesan",
-        description: "Rasakan pengalaman ibadah yang khusyuk dengan bimbingan para ustadz dan doktor agama berpengalaman",
+        description: "Rasakan pengalamanan spiritual ibadah anda Bersama TahliyahTour",
         image: image2,
         cta: "Konsultasi",
         color: "from-orange-400 to-orange-700",
@@ -28,7 +28,7 @@ const heroSlides = [
     {
         title: "LAYANAN TERBAIK",
         subtitle: "Untuk Ibadah Anda",
-        description: "Nikmati pelayanan prima dengan fasilitas lengkap dan pembimbing yang siap mendampingi setiap langkah",
+        description: "Dengan bimbingan maksimal dengan fasilitas optimal dan harga terjangkau",
         image: image3,
         cta: "Lihat Paket",
         color: "from-orange-600 to-red-500",
@@ -166,27 +166,26 @@ const Carousel = () => {
             </div>
 
             {/* Decorative Elements */}
-            <div className="hidden lg:block relative">
+            <div className="absolute right-4 lg:right-8 bottom-24 lg:bottom-20 scale-75 lg:scale-100">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
                 transition={{ delay: 1, duration: 1 }}
                 className="relative"
               >
-                {/* Floating Modern Decorative Cards */}
-                <div className="absolute -top-8 -right-8 w-28 h-28 bg-gradient-to-br from-orange-400/30 to-orange-600/20 backdrop-blur-xl border border-orange-300/30 rounded-3xl shadow-xl rotate-12 hover:rotate-3 transition-transform duration-500"></div>
-                <div className="absolute -top-8 -left-8 w-24 h-24 bg-gradient-to-tr from-orange-400/20 to-orange-500/10 backdrop-blur-xl border border-orange-200/20 rounded-2xl shadow-lg -rotate-6 hover:rotate-0 transition-transform duration-500"></div>
-                <div className="absolute -bottom-8 left-8 w-16 h-16 bg-gradient-to-tl from-orange-400/10 to-orange-600/10 backdrop-blur-lg border border-orange-300/10 rounded-xl shadow-md rotate-12 hover:rotate-0 transition-transform duration-500"></div>
-                <div className="absolute -bottom-8 -right-8 w-20 h-20 bg-gradient-to-br from-orange-400/10 to-orange-600/10 backdrop-blur-lg border border-orange-300/10 rounded-xl shadow-md -rotate-12 hover:rotate-0 transition-transform duration-500"></div>
-                {/* Central Glass Morphism Card */}
-                <div className="flex justify-center items-center">
-                <div className=" bg-orange-400/10 backdrop-blur-xl border border-orange-300/15 rounded-2xl p-4 w-56 shadow-2xl hover:bg-orange-500/15 transition-all duration-500">
-                  <div className="text-center space-y-2">
-                    <h3 className="text-white font-semibold text-base">Izin Kemenag RI</h3>
-                    <p className="text-orange-200/80 font-bold text-xl">No. U.12 Tahun 2023</p>
-                    <p className="text-white text-sm">PT. Mumtaaz Cahaya Abadi</p>
+                {/* Glass Morphism Card with Floating Effects */}
+                <div className="absolute -right-4 -top-4 w-24 h-24 bg-gradient-to-br from-orange-400/30 to-orange-600/20 backdrop-blur-xl border border-orange-300/30 rounded-2xl shadow-xl rotate-12 hover:rotate-3 transition-transform duration-500"></div>
+                <div className="absolute -left-2 -bottom-4 w-16 h-16 bg-gradient-to-tr from-orange-400/20 to-orange-500/10 backdrop-blur-xl border border-orange-200/20 rounded-xl shadow-lg -rotate-6 hover:rotate-0 transition-transform duration-500"></div>
+                
+                {/* Main Glass Card */}
+                <div className="relative">
+                  <div className="bg-orange-400/10 backdrop-blur-xl border border-orange-300/15 rounded-2xl p-4 w-48 shadow-2xl hover:bg-orange-500/15 transition-all duration-500">
+                    <div className="text-center space-y-2">
+                      <h3 className="text-white font-semibold text-base">Izin Kemenag RI</h3>
+                      <p className="text-orange-200/80 font-bold text-lg">No. U.12 Tahun 2023</p>
+                      <p className="text-white text-xs">PT. Mumtaaz Cahaya Abadi</p>
+                    </div>
                   </div>
-                </div>
                 </div>
               </motion.div>
             </div>

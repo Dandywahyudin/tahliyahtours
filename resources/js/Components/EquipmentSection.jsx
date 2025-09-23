@@ -47,10 +47,43 @@ const galleryItems = [
 
 export default function EquipmentSection() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const scrollContainerRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+
+  const scrollToNext = () => {
+    if (scrollContainerRef.current) {
+      const itemWidth = scrollContainerRef.current.firstChild.offsetWidth;
+      const gap = 24; // gap-6 = 1.5rem = 24px
+      scrollContainerRef.current.scrollBy({ left: itemWidth + gap, behavior: 'smooth' });
+    }
+  };
+
+  const scrollToPrev = () => {
+    if (scrollContainerRef.current) {
+      const itemWidth = scrollContainerRef.current.firstChild.offsetWidth;
+      const gap = 24; // gap-6 = 1.5rem = 24px
+      scrollContainerRef.current.scrollBy({ left: -(itemWidth + gap), behavior: 'smooth' });
+    }
+  };
+
+  const nextImage = () => {
+    if (selectedImage) {
+      const currentIndex = galleryItems.findIndex(item => item === selectedImage);
+      const nextIndex = (currentIndex + 1) % galleryItems.length;
+      setSelectedImage(galleryItems[nextIndex]);
+    }
+  };
+
+  const prevImage = () => {
+    if (selectedImage) {
+      const currentIndex = galleryItems.findIndex(item => item === selectedImage);
+      const prevIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
+      setSelectedImage(galleryItems[prevIndex]);
+    }
+  };
   
   // Add custom CSS for hiding scrollbar
   useEffect(() => {
@@ -149,7 +182,27 @@ export default function EquipmentSection() {
         </motion.div>
 
         {/* Horizontal Gallery */}
-        <div className="w-full overflow-hidden">
+        <div className="w-full overflow-hidden relative group">
+          {/* Navigation Buttons */}
+          <button
+            onClick={scrollToPrev}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-r-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            aria-label="Previous"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button
+            onClick={scrollToNext}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white text-gray-800 p-2 rounded-l-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            aria-label="Next"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
           {/* Gallery Container */}
           <div
             ref={scrollContainerRef}
@@ -196,7 +249,7 @@ export default function EquipmentSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-4"
+            className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4"
             onClick={closeModal}
           >
             <motion.div
@@ -213,12 +266,39 @@ export default function EquipmentSection() {
                 className="w-full h-full object-cover rounded-lg"
                 style={{ aspectRatio: '4/6' }}
               />
+              {/* Close button */}
               <button
                 onClick={closeModal}
-                className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-white bg-opacity-20 hover:bg-opacity-30 text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-lg sm:text-xl font-bold transition-all duration-200"
+                className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black bg-opacity-50 hover:bg-opacity-30 text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center text-lg sm:text-xl font-bold transition-all duration-200"
               >
                 ×
               </button>
+
+              {/* Navigation buttons */}
+              <button
+                onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-30 text-white p-2 rounded-full transition-all duration-200"
+                aria-label="Previous image"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-30 text-white p-2 rounded-full transition-all duration-200"
+                aria-label="Next image"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+              {/* Image info */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4 rounded-b-lg">
+                <h3 className="text-white font-semibold text-lg">{selectedImage.text}</h3>
+                <p className="text-white/80 text-sm">{selectedImage.description}</p>
+              </div>
             </motion.div>
           </motion.div>
         )}

@@ -240,7 +240,7 @@ export default function AboutMe() {
             animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 1, delay: 0.8, type: "spring", stiffness: 80 }}
           >
-            TAHLIYAH Tours & Travel adalah perusahaan yang berpengalaman dalam menyelenggarakan perjalanan ibadah haji dan umrah
+            Tahliyah Tours & Travel adalah perusahaan yang berpengalaman dalam menyelenggarakan perjalanan ibadah haji dan umrah
           </motion.p>
         </motion.div>
 
@@ -318,11 +318,36 @@ export default function AboutMe() {
                   transition={{ duration: 0.6, delay: 1.2, type: "spring", stiffness: 200 }}
                 ></motion.div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Fasilitas Terbaik</h4>
-                  <p className="text-gray-600 text-sm">Hotel berbintang dan transportasi yang nyaman</p>
+                  <h4 className="font-semibold text-gray-900">Fasilitas terbaik dengan fasilitas optimal</h4>
+                  <p className="text-gray-600 text-sm">Hotel dan transportasi yang aman serta nya</p>
                 </div>
               </motion.div>
               
+              <motion.div 
+                className="flex items-start space-x-3"
+                initial={{ opacity: 0, x: -60, scale: 0.7, rotateY: 45 }}
+                animate={textInView ? { opacity: 1, x: 0, scale: 1, rotateY: 0 } : { opacity: 0, x: -60, scale: 0.7, rotateY: 45 }}
+                transition={{ duration: 0.8, delay: 1.0, type: "spring", stiffness: 120 }}
+              >
+                <motion.div 
+                  className="w-2 h-2 bg-orange-600 rounded-full mt-2"
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={textInView ? { scale: 1, rotate: 0 } : { scale: 0, rotate: -180 }}
+                  transition={{ duration: 0.6, delay: 1.2, type: "spring", stiffness: 200 }}
+                ></motion.div>
+                <div>
+                  <h4 className="font-semibold text-gray-900">Manajement By Khalifah Group</h4>
+                  <p className="text-gray-600 text-sm">Program umrah kami dikelola oleh khalifah group, perusahaan yang profesional dan terpercaya.</p>
+                </div>
+              </motion.div>
+              
+
+
+
+
+
+
+
               <motion.div 
                 className="flex items-start space-x-3"
                 initial={{ opacity: 0, x: -60, scale: 0.7, rotateY: 45 }}
@@ -416,7 +441,7 @@ export default function AboutMe() {
                 animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 1, delay: 0.9 }}
               >
-                Tim pembimbing yang terdiri dari para ustadz dan doktor agama berpengalaman
+                Tim pembimbing terdiri dari para ustadz yang berpengalaman
               </motion.p>
             </motion.div>
 

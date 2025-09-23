@@ -13,7 +13,7 @@ Disallow: /api/
 Disallow: /*.json$
 
 # Sitemap
-Sitemap: /sitemap.xml
+Sitemap: https://tahliyahtours.web.id/sitemap.xml
 
 # Crawl delay (optional, helps with server load)
 Crawl-delay: 1

@@ -25,7 +25,7 @@ return (
                 <div>
                     <h4 className="text-lg font-semibold mb-4">Layanan</h4>
                     <ul className="space-y-2 text-gray-400 text-sm">
-                        {["Haji Reguler", "Haji Plus", "Umrah Reguler", "Umrah Plus"].map((item, idx) => (
+                        {["Umrah Reguler", "Umrah Plus", "Halal Tours", "Haji Plus"].map((item, idx) => (
                             <li key={item}>
                                 <button
                                     onClick={() => scrollToSection("services")}
@@ -52,16 +52,28 @@ return (
                                 rel="noopener noreferrer"
                                 className="hover:text-orange-400 transition-colors"
                             >
-                                @tahliyahtours
+                                Ig : @tahliyahtours
                             </a>
                         </li>
                         <li>
-                            <button
-                                onClick={() => scrollToSection("contact")}
+                            <a
+                                href="https://www.tiktok.com/@tahliyahtours"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="hover:text-orange-400 transition-colors"
                             >
-                                fb : tahliyahtours
-                            </button>
+                                Tiktok : @tahliyahtours
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.facebook.com/tahliyahtours"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="hover:text-orange-400 transition-colors"
+                            >
+                                Fb : tahliyahtours
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -82,7 +94,7 @@ return (
                             </button>
                         </li>
                         <li>
-                            <button onClick={() => scrollToSection("home")} className="hover:text-orange-400 transition-colors">
+                            <button onClick={() => scrollToSection("testimonials")} className="hover:text-orange-400 transition-colors">
                                 Testimoni
                             </button>
                         </li>
