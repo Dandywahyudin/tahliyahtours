@@ -16,7 +16,7 @@ return (
             <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
                 <div className="md:col-span-1">
                     <Link href="/" className="flex items-center space-x-2 mb-4 hover:opacity-80 transition-opacity">
-                        <img src="/images/logo.png" alt="TAHLIYAH Tours & Travel" className="object-contain w-24 h-auto" />
+                        <img src="/images/logo2.png" alt="TAHLIYAH Tours & Travel" className="object-contain w-24 h-auto" />
                     </Link>
                     <p className="text-gray-400 text-sm">
                         Bimbingan Maksimal Fasilitas Optimal.
@@ -118,7 +118,7 @@ return (
                 </div>
             </div>
             <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400 text-xs">
-                <p>&copy; 2025 TAHLIYAH Tours & Travel. All rights reserved.</p>
+                <p>&copy; 2025 Tahliyah Tours & Travel. All rights reserved.</p>
             </div>
         </div>
     </footer>

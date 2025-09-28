@@ -10,15 +10,19 @@ const urlsToCache = [
 ];
 
 // Install event
-self.addEventListener('install', function(event) {
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(function(cache) {
-        return cache.addAll(urlsToCache);
-      })
+    caches.open(CACHE_NAME).then((cache) => {
+      return Promise.all(
+        urlsToCache.map((url) =>
+          cache.add(url).catch((err) => {
+            console.warn('Gagal cache:', url, err);
+          })
+        )
+      );
+    })
   );
 });
-
 // Fetch event
 self.addEventListener('fetch', function(event) {
   event.respondWith(

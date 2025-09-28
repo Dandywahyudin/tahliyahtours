@@ -58,7 +58,7 @@ const useScrollAnimation = () => {
   return visibleElements
 }
 
-export default function Home({ guides = [], packages = [], articles = [] }) {
+export default function Home({ guides = [], packages = [], articles = [], katalogs=[] }) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [heroIndex, setHeroIndex] = useState(0)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -74,7 +74,7 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
   const packageSliderRef = useRef(null)
 
   const visibleElements = useScrollAnimation()
-
+  
   const heroSlides = []
 
   useEffect(() => {
@@ -196,7 +196,7 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
 
   return (
     <>
-      <Head title="TAHLIYAH Tours & Travel - Pembimbing Haji dan Umrah Terpercaya" />
+      <Head title="Tahliyah Tours & Travel - Pembimbing Haji dan Umrah Terpercaya" />
 
       <div className="min-h-screen bg-gradient-to-b from-orange-50 to-white overflow-x-hidden">
         {/* Header */}
@@ -454,7 +454,7 @@ export default function Home({ guides = [], packages = [], articles = [] }) {
         {/* Guides Carousel Section */}
         <MentorSection/>
         
-        <EquipmentSection/>
+        <EquipmentSection katalogs={katalogs}/>
         <Testimonials/>
         {/* Footer */}
           <Footer />

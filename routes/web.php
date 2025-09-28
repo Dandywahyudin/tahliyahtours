@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArtikelController;
+use App\Http\Controllers\KatalogController;
+use App\Http\Controllers\TravelPackageController;
+
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -17,7 +20,12 @@ Route::get('/', function () {
     // Ambil paket travel published terbaru untuk ditampilkan di home
     $packages = \App\Models\TravelPackage::where('status', 'published')
         ->latest()
-        ->limit(4)
+        ->limit(8)
+        ->get();
+
+    $katalogs = \App\Models\Katalog::with('author')
+        ->latest()
+        ->limit(10)
         ->get();
         
     return Inertia::render('Home', [
@@ -27,6 +35,7 @@ Route::get('/', function () {
         'phpVersion' => PHP_VERSION,
         'articles' => $articles,
         'packages' => $packages,
+        'katalogs' => $katalogs,
     ]);
 });
 
@@ -49,13 +58,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/artikels/{artikel}', [ArtikelController::class, 'destroy'])->name('artikels.destroy');
 
     // Travel Package routes
-    Route::get('/packages', [\App\Http\Controllers\TravelPackageController::class, 'index'])->name('packages.index');
-    Route::get('/packages/create', [\App\Http\Controllers\TravelPackageController::class, 'create'])->name('packages.create');
-    Route::post('/packages', [\App\Http\Controllers\TravelPackageController::class, 'store'])->name('packages.store');
-    Route::get('/packages/{package}', [\App\Http\Controllers\TravelPackageController::class, 'show'])->name('packages.show');
-    Route::get('/packages/{package}/edit', [\App\Http\Controllers\TravelPackageController::class, 'edit'])->name('packages.edit');
-    Route::put('/packages/{package}', [\App\Http\Controllers\TravelPackageController::class, 'update'])->name('packages.update');
-    Route::delete('/packages/{package}', [\App\Http\Controllers\TravelPackageController::class, 'destroy'])->name('packages.destroy');
+    Route::get('/packages', [TravelPackageController::class, 'index'])->name('packages.index');
+    Route::get('/packages/create', [TravelPackageController::class, 'create'])->name('packages.create');
+    Route::post('/packages', [TravelPackageController::class, 'store'])->name('packages.store');
+    Route::get('/packages/{package}', [TravelPackageController::class, 'show'])->name('packages.show');
+    Route::get('/packages/{package}/edit', [TravelPackageController::class, 'edit'])->name('packages.edit');
+    Route::put('/packages/{package}', [TravelPackageController::class, 'update'])->name('packages.update');
+    Route::delete('/packages/{package}', [TravelPackageController::class, 'destroy'])->name('packages.destroy');
+
+    Route::get('/katalog', [KatalogController::class, 'index'])->name('katalog.index');
+    Route::get('/katalog/create', [KatalogController::class, 'create'])->name('katalog.create');
+    Route::post('/katalog', [KatalogController::class, 'store'])->name('katalog.store');
+    Route::get('/katalog/{katalog}/update', [KatalogController::class, 'edit'])->name('katalog.edit');
+    Route::get('/katalog/{katalog}', [KatalogController::class, 'show'])->name('katalog.show');
+    Route::put('/katalog/{katalog}', [KatalogController::class, 'update'])->name('katalog.update');
+    Route::delete('/katalog/{katalog}', [KatalogController::class, 'destroy'])->name('katalog.destroy');
 
 });
 

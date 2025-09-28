@@ -42,6 +42,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Paket Travel
                                 </NavLink>
+                                <NavLink
+                                    href={route('katalog.index')}
+                                    active={route().current('katalog.*')}
+                                >
+                                    Katalog
+                                </NavLink>
                             </div>
         
                         </div>
@@ -158,6 +164,12 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current('packages.*')}
                         >
                             Paket Travel
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('katalog.index')}
+                            active={route().current('packages.*')}
+                        >
+                            Katalog
                         </ResponsiveNavLink>
                     </div>
 
