@@ -178,7 +178,7 @@ export default function Index({ packages }) {
                                                         </div>
                                                         
                                                         <div className="text-lg font-bold text-gray-900 mb-3">
-                                                            Rp {new Intl.NumberFormat('id-ID').format(pkg.price)}
+                                                            Rp {new Intl.NumberFormat('id-ID').format(pkg.price)} JT
                                                         </div>
                                                         
                                                         <div className="flex space-x-2">

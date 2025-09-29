@@ -306,7 +306,7 @@ export default function Home({ guides = [], packages = [], articles = [], katalo
                             <div className="absolute bottom-4 right-4">
                               <div className="bg-white/95 backdrop-blur-sm px-3 py-2 rounded-xl shadow-lg">
                                 <p className="text-orange-600 font-bold text-lg leading-none">
-                                  Rp {Number(pkg.price).toLocaleString('id-ID')}
+                                  Rp {Number(pkg.price).toLocaleString('id-ID')} jt
                                 </p>
                                 <p className="text-gray-500 text-xs">per orang</p>
                               </div>

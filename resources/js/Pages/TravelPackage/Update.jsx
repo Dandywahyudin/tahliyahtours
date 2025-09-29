@@ -124,11 +124,9 @@ export default function Update({ package: pkg }) {
                                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                         id="price"
                                         type="number"
-                                        min="0"
-                                        step="1000"
                                         value={data.price}
                                         onChange={(e) => setData('price', e.target.value)}
-                                        placeholder="25000000"
+                                        placeholder="25000"
                                     />
                                     {errors.price && <div className="text-red-500 text-xs italic">{errors.price}</div>}
                                 </div>
