@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Button } from "../Components/ui/Button";
-import image1 from "../../../public/images/caraousel1.png";
-import image2 from "../../../public/images/caraousel2.jpg";
-import image3 from "../../../public/images/caraousel3.png";
 import BlurText from './BlurText';
+
+// Lazy load images for better performance
+const image1 = '/images/caraousel2.jpeg';
+const image2 = '/images/caraousel1.png';
+const image3 = '/images/caraousel4.jpeg';
 
 const heroSlides = [
     {
@@ -13,17 +15,17 @@ const heroSlides = [
         description: "Wujudkan impian ibadah haji dan umrah Anda bersama TahliyahTour",
         image: image1,
         cta: "Daftar",
-        color: "from-orange-500 to-orange-600",
+        color: "from-orange-400 to-orange-600",
         accent: "text-orange-300",
     },
     {
         title: "PERJALANAN SPIRITUAL",
         subtitle: "Yang Berkesan",
-        description: "Rasakan pengalamanan spiritual ibadah anda Bersama TahliyahTour",
+        description: "Rasakan pengalamanan spiritual ibadah anda Bersama TahliyahTours",
         image: image2,
         cta: "Konsultasi",
         color: "from-orange-400 to-orange-700",
-        accent: "text-orange-200",
+        accent: "text-orange-300",
     },
     {
         title: "LAYANAN TERBAIK",
@@ -80,12 +82,12 @@ const Carousel = () => {
           className="absolute inset-0"
         >
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform transition-transform duration-[6000ms] hover:scale-105"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform transition-transform duration-[5000ms] hover:scale-105"
             style={{ backgroundImage: `url(${heroSlides[heroIndex].image})` }}
           >
             {/* Modern Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/60 to-black/80"></div>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-black/40 to-black/30"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
           </div>
         </motion.div>
       </AnimatePresence>
@@ -94,7 +96,7 @@ const Carousel = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Text Content */}
-            <div className="space-y-8">
+            <div className="space-y-6 lg:space-y-8">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={heroIndex}
@@ -113,7 +115,7 @@ const Carousel = () => {
                       animateBy="words"
                       direction="top"
                       onAnimationComplete={handleAnimationComplete}
-                      className="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight drop-shadow-2xl"
+                      className="text-4xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight drop-shadow-2xl"
                     />
                     <BlurText
                       text={heroSlides[heroIndex].subtitle}
@@ -161,12 +163,53 @@ const Carousel = () => {
                       </svg>
                     </Button>
                   </motion.div>
+
+                  {/* Logo Section - Bottom Left */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 1, duration: 0.8 }}
+                    className="flex flex-row gap-2 sm:gap-3 pt-3 sm:pt-4"
+                  >
+                    {/* Kemenag Logo */}
+                    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-1.5 sm:p-2 hover:bg-white/20 transition-all duration-300">
+                      <img 
+                        src="/images/logokemenag.jpeg" 
+                        alt="Kemenag" 
+                        className="h-9 sm:h-11 lg:h-13 w-auto object-contain rounded-lg"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+
+                    {/* ASITA Logo */}
+                    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-1.5 sm:p-2 hover:bg-white/20 transition-all duration-300">
+                      <img 
+                        src="/images/asita.jpeg" 
+                        alt="ASITA" 
+                        className="h-9 sm:h-11 lg:h-13 w-auto object-contain rounded-lg"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+
+                    {/* APMHURI Logo */}
+                    <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-1.5 sm:p-2 hover:bg-white/20 transition-all duration-300">
+                      <img 
+                        src="/images/amphuri-logo.jpg" 
+                        alt="APMHURI" 
+                        className="h-9 sm:h-11 lg:h-13 w-auto object-contain rounded-lg"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  </motion.div>
                 </motion.div>
               </AnimatePresence>
             </div>
 
             {/* Decorative Elements */}
-            <div className="absolute right-4 lg:right-8 bottom-24 lg:bottom-20 scale-75 lg:scale-100">
+            <div className="absolute right-2 sm:right-4 lg:right-8 bottom-20 sm:bottom-25 lg:bottom-25 scale-75 sm:scale-90 lg:scale-100 origin-bottom-right">
               <motion.div
                 initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -179,11 +222,11 @@ const Carousel = () => {
                 
                 {/* Main Glass Card */}
                 <div className="relative">
-                  <div className="bg-orange-400/10 backdrop-blur-xl border border-orange-300/15 rounded-2xl p-4 w-48 shadow-2xl hover:bg-orange-500/15 transition-all duration-500">
-                    <div className="text-center space-y-2">
-                      <h3 className="text-white font-semibold text-base">Izin Kemenag RI</h3>
-                      <p className="text-orange-200/80 font-bold text-lg">No. U.12 Tahun 2023</p>
-                      <p className="text-white text-xs">PT. Mumtaaz Cahaya Abadi</p>
+                  <div className="bg-orange-400/10 backdrop-blur-xl border border-orange-300/15 rounded-2xl p-3 sm:p-4 lg:p-5 w-44 sm:w-48 lg:w-56 shadow-2xl hover:bg-orange-500/15 transition-all duration-500">
+                    <div className="text-center space-y-1.5 sm:space-y-2">
+                      <h3 className="text-white font-semibold text-sm sm:text-base lg:text-lg">Izin Kemenag RI</h3>
+                      <p className="text-orange-200/80 font-bold text-base sm:text-lg lg:text-xl">No. U.12 Tahun 2023</p>
+                      <p className="text-white text-xs sm:text-sm">PT. Mumtaaz Cahaya Abadi</p>
                     </div>
                   </div>
                 </div>

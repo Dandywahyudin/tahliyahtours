@@ -25,6 +25,19 @@ self.addEventListener('install', (event) => {
 });
 // Fetch event
 self.addEventListener('fetch', function(event) {
+  // Skip fetching for non-GET requests
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
+  // Skip fetching for localhost and development URLs
+  if (event.request.url.includes('localhost') || 
+      event.request.url.includes('127.0.0.1') ||
+      event.request.url.includes('@vite') ||
+      event.request.url.includes('@react-refresh')) {
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then(function(response) {
@@ -32,7 +45,14 @@ self.addEventListener('fetch', function(event) {
         if (response) {
           return response;
         }
-        return fetch(event.request);
+        return fetch(event.request).catch(function() {
+          // Return a default response if fetch fails
+          return new Response('', { status: 404 });
+        });
+      })
+      .catch(function(error) {
+        console.warn('Fetch error:', error);
+        return new Response('', { status: 500 });
       })
   );
 });

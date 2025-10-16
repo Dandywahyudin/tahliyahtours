@@ -9,6 +9,7 @@ import EquipmentSection from "../Components/EquipmentSection";
 import Carousel from "../Components/Carousel";
 import MentorSection from "../Components/MentorSection";
 import AboutMe from "../Components/AboutMe";
+import GallerySection from "../Components/GallerySection";
 import { Card, CardContent } from "../Components/ui/Card";
 
 import {
@@ -205,6 +206,9 @@ export default function Home({ guides = [], packages = [], articles = [], katalo
         <Carousel slides={heroSlides} />
         {/* About Me Section */}
         <AboutMe />
+
+        {/* Gallery Section */}
+        <GallerySection />
 
         {/* Booking Cards Section - Package Slider */}
         <section id="paketperjalanan" className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-orange-50 to-white">

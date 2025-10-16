@@ -112,7 +112,7 @@ export default function Testimonials() {
                   className="w-full h-full"
                   frameBorder="0"
                   scrolling="no"
-                  allowTransparency="true"
+                  allowtransparency="true"
                   onLoad={handleIframeLoad}
                   title={`Testimonial ${currentIndex + 1}`}
                 ></iframe>

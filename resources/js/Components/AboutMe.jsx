@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect, memo, useCallback, useMemo } from "react";
-import { motion, useMotionValue, useSpring, useInView } from "motion/react";
+import { motion, useMotionValue, useSpring, useInView, useTransform } from "motion/react";
 
 const springValues = {
   damping: 30,
@@ -175,7 +175,7 @@ export default function AboutMe() {
       desc: "Tim pembimbing yang telah tersertifikasi dan berpengalaman"
     },
     {
-      title: "Fasilitas Terbaik", 
+      title: "Fasilitas Optimal", 
       desc: "Hotel berbintang dan transportasi yang nyaman"
     },
     {
@@ -216,29 +216,29 @@ export default function AboutMe() {
       className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 to-white"
       initial={{ opacity: 0 }}
       animate={sectionInView ? { opacity: 1 } : { opacity: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.5 }}
     >
       <div className="max-w-7xl mx-auto">
         <motion.div 
           ref={titleRef}
           className="text-center mb-16"
-          initial={{ opacity: 0, y: 80, scale: 0.8 }}
-          animate={titleInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 80, scale: 0.8 }}
-          transition={{ duration: 1, delay: 0.2, type: "spring", stiffness: 100 }}
+          initial={{ opacity: 0, y: 40 }}
+          animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <motion.h2 
             className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
-            initial={{ opacity: 0, scale: 0.5, rotateX: 90 }}
-            animate={titleInView ? { opacity: 1, scale: 1, rotateX: 0 } : { opacity: 0, scale: 0.5, rotateX: 90 }}
-            transition={{ duration: 1.2, delay: 0.4, type: "spring", stiffness: 120 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           >
             Tentang Kami
           </motion.h2>
           <motion.p 
             className="text-xl text-gray-600 max-w-3xl mx-auto"
-            initial={{ opacity: 0, y: 50 }}
-            animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 1, delay: 0.8, type: "spring", stiffness: 80 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={titleInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           >
             Tahliyah Tours & Travel adalah perusahaan yang berpengalaman dalam menyelenggarakan perjalanan ibadah haji dan umrah
           </motion.p>
@@ -249,9 +249,9 @@ export default function AboutMe() {
           <motion.div 
             ref={cardRef}
             className="flex justify-center order-2 md:order-1"
-            initial={{ opacity: 0, x: -150, rotateY: 90, scale: 0.5 }}
-            animate={cardInView ? { opacity: 1, x: 0, rotateY: 0, scale: 1 } : { opacity: 0, x: -150, rotateY: 90, scale: 0.5 }}
-            transition={{ duration: 1.2, delay: 0.3, type: "spring", stiffness: 80, damping: 20 }}
+            initial={{ opacity: 0, x: -80 }}
+            animate={cardInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -80 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             {tiltedCard}
           </motion.div>
@@ -260,23 +260,23 @@ export default function AboutMe() {
           <motion.div 
             ref={textRef}
             className="order-1 md:order-2"
-            initial={{ opacity: 0, x: 150, rotateY: -45 }}
-            animate={textInView ? { opacity: 1, x: 0, rotateY: 0 } : { opacity: 0, x: 150, rotateY: -45 }}
-            transition={{ duration: 1.2, delay: 0.5, type: "spring", stiffness: 90 }}
+            initial={{ opacity: 0, x: 80 }}
+            animate={textInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 80 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <motion.h3 
               className="text-2xl font-bold text-black-500 mb-4"
-              initial={{ opacity: 0, y: 40, scale: 0.8 }}
-              animate={textInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.8 }}
-              transition={{ duration: 0.8, delay: 0.2, type: "spring", stiffness: 120 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={textInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
             >
               PT. Mumtaaz Cahaya Abadi (Tahliyah Tours)
             </motion.h3>
             <motion.p 
               className="text-black-600 font-semi-bold mb-6"
-              initial={{ opacity: 0, y: 40 }}
-              animate={textInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              initial={{ opacity: 0, y: 15 }}
+              animate={textInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+              transition={{ duration: 0.5, delay: 0.15, ease: "easeOut" }}
             >
               Kami adalah perusahaan Biro Perjalanan Wisata yang telah resmi mendapatkan izin sebagai Penyelenggara Perjalanan Ibadah Umrah (PPIU) dari Kementerian Agama Republik Indonesia.
             </motion.p>
@@ -318,8 +318,8 @@ export default function AboutMe() {
                   transition={{ duration: 0.6, delay: 1.2, type: "spring", stiffness: 200 }}
                 ></motion.div>
                 <div>
-                  <h4 className="font-semibold text-gray-900">Fasilitas terbaik dengan fasilitas optimal</h4>
-                  <p className="text-gray-600 text-sm">Hotel dan transportasi yang aman serta nya</p>
+                  <h4 className="font-semibold text-gray-900">Fasilitas Optimal</h4>
+                  <p className="text-gray-600 text-sm">Hotel dan transportasi yang aman dan nyaman</p>
                 </div>
               </motion.div>
               
@@ -337,7 +337,7 @@ export default function AboutMe() {
                 ></motion.div>
                 <div>
                   <h4 className="font-semibold text-gray-900">Manajement By Khalifah Group</h4>
-                  <p className="text-gray-600 text-sm">Program umrah kami dikelola oleh khalifah group, perusahaan yang profesional dan terpercaya.</p>
+                  <p className="text-gray-600 text-sm">Program umrah kami dikelola oleh Khalifah Tour, Khalifah Tour adalah Induk Perusahaan dari Tahliyah Tour.</p>
                 </div>
               </motion.div>
               
@@ -379,7 +379,7 @@ export default function AboutMe() {
                 ></motion.div>
                 <div>
                   <h4 className="font-semibold text-gray-900">Kemudahan Pembayaran</h4>
-                  <p className="text-gray-600 text-sm">Berbagai metode pembayaran yang memudahkan Anda</p>
+                  <p className="text-gray-600 text-sm">Berbagai metode pembayaran ( Tabungan ) yang memudahkan Anda</p>
                 </div>
               </motion.div>
               <motion.div 
@@ -405,41 +405,40 @@ export default function AboutMe() {
           <motion.div 
             ref={featuresRef}
             className="grid md:grid-cols-3 gap-8 mt-8"
-            initial={{ opacity: 0, y: 120, scale: 0.7 }}
-            animate={featuresInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 120, scale: 0.7 }}
-            transition={{ duration: 1, delay: 0.2, type: "spring", stiffness: 80 }}
+            initial={{ opacity: 0, y: 60 }}
+            animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           >
             <motion.div 
               className="text-center p-8 rounded-2xl bg-gradient-to-br from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 transition-all duration-500 hover:scale-105 hover:shadow-xl"
-              initial={{ opacity: 0, y: 100, scale: 0.3, rotateX: 90 }}
-              animate={featuresInView ? { opacity: 1, y: 0, scale: 1, rotateX: 0 } : { opacity: 0, y: 100, scale: 0.3, rotateX: 90 }}
-              transition={{ duration: 1.2, delay: 0.3, type: "spring", stiffness: 100 }}
-              whileHover={{ scale: 1.08, rotateY: 8, rotateX: -5 }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              whileHover={{ scale: 1.03 }}
             >
               <motion.div 
                 className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-6 shadow-lg"
-                initial={{ rotate: -360, scale: 0, opacity: 0 }}
-                animate={featuresInView ? { rotate: 0, scale: 1, opacity: 1 } : { rotate: -360, scale: 0, opacity: 0 }}
-                transition={{ duration: 1.5, delay: 0.5, type: "spring", stiffness: 200 }}
-                whileHover={{ rotate: 360, scale: 1.2 }}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={featuresInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
               >
                 <svg className="h-8 w-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                 </svg>
               </motion.div>
               <motion.h3 
                 className="text-2xl font-bold text-gray-900 mb-4"
-                initial={{ opacity: 0, x: -50 }}
-                animate={featuresInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                transition={{ duration: 1, delay: 0.7 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.4, delay: 0.15 }}
               >
                 Pembimbing Berpengalaman
               </motion.h3>
               <motion.p 
                 className="text-gray-600 leading-relaxed"
-                initial={{ opacity: 0, y: 30 }}
-                animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 1, delay: 0.9 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
               >
                 Tim pembimbing terdiri dari para ustadz yang berpengalaman
               </motion.p>
@@ -447,17 +446,16 @@ export default function AboutMe() {
 
             <motion.div 
               className="text-center p-8 rounded-2xl bg-gradient-to-br from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 transition-all duration-500 hover:scale-105 hover:shadow-xl"
-              initial={{ opacity: 0, y: 100, scale: 0.3, rotateX: 90 }}
-              animate={featuresInView ? { opacity: 1, y: 0, scale: 1, rotateX: 0 } : { opacity: 0, y: 100, scale: 0.3, rotateX: 90 }}
-              transition={{ duration: 1.2, delay: 0.5, type: "spring", stiffness: 100 }}
-              whileHover={{ scale: 1.08, rotateY: 8, rotateX: -5 }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+              whileHover={{ scale: 1.03 }}
             >
               <motion.div 
                 className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-6 shadow-lg"
-                initial={{ rotate: -360, scale: 0, opacity: 0 }}
-                animate={featuresInView ? { rotate: 0, scale: 1, opacity: 1 } : { rotate: -360, scale: 0, opacity: 0 }}
-                transition={{ duration: 1.5, delay: 0.7, type: "spring", stiffness: 200 }}
-                whileHover={{ rotate: 360, scale: 1.2 }}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={featuresInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+                transition={{ duration: 0.4, delay: 0.2 }}
               >
                 <svg className="h-8 w-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
@@ -465,17 +463,17 @@ export default function AboutMe() {
               </motion.div>
               <motion.h3 
                 className="text-2xl font-bold text-gray-900 mb-4"
-                initial={{ opacity: 0, x: -50 }}
-                animate={featuresInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                transition={{ duration: 1, delay: 0.9 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.4, delay: 0.25 }}
               >
                 Pelayanan Terbaik
               </motion.h3>
               <motion.p 
                 className="text-gray-600 leading-relaxed"
-                initial={{ opacity: 0, y: 30 }}
-                animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 1, delay: 1.1 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
               >
                 Memberikan pelayanan terbaik untuk perjalanan ibadah yang khusyuk
               </motion.p>
@@ -483,17 +481,16 @@ export default function AboutMe() {
 
             <motion.div 
               className="text-center p-8 rounded-2xl bg-gradient-to-br from-orange-50 to-orange-100 hover:from-orange-100 hover:to-orange-200 transition-all duration-500 hover:scale-105 hover:shadow-xl"
-              initial={{ opacity: 0, y: 100, scale: 0.3, rotateX: 90 }}
-              animate={featuresInView ? { opacity: 1, y: 0, scale: 1, rotateX: 0 } : { opacity: 0, y: 100, scale: 0.3, rotateX: 90 }}
-              transition={{ duration: 1.2, delay: 0.7, type: "spring", stiffness: 100 }}
-              whileHover={{ scale: 1.08, rotateY: 8, rotateX: -5 }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+              transition={{ duration: 0.5, delay: 0.2, ease: "easeOut" }}
+              whileHover={{ scale: 1.03 }}
             >
               <motion.div 
                 className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-6 shadow-lg"
-                initial={{ rotate: -360, scale: 0, opacity: 0 }}
-                animate={featuresInView ? { rotate: 0, scale: 1, opacity: 1 } : { rotate: -360, scale: 0, opacity: 0 }}
-                transition={{ duration: 1.5, delay: 0.9, type: "spring", stiffness: 200 }}
-                whileHover={{ rotate: 360, scale: 1.2 }}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={featuresInView ? { scale: 1, opacity: 1 } : { scale: 0, opacity: 0 }}
+                transition={{ duration: 0.4, delay: 0.3 }}
               >
                 <svg className="h-8 w-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3a4 4 0 118 0v4m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
@@ -501,17 +498,17 @@ export default function AboutMe() {
               </motion.div>
               <motion.h3 
                 className="text-2xl font-bold text-gray-900 mb-4"
-                initial={{ opacity: 0, x: -50 }}
-                animate={featuresInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
-                transition={{ duration: 1, delay: 1.1 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.4, delay: 0.35 }}
               >
                 Kepastian Tanggal Keberangkatan
               </motion.h3>
               <motion.p 
                 className="text-gray-600 leading-relaxed"
-                initial={{ opacity: 0, y: 30 }}
-                animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 1, delay: 1.3 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={featuresInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.4, delay: 0.4 }}
               >
                 Berbagai pilihan jadwal keberangkatan sesuai kebutuhan Anda
               </motion.p>
