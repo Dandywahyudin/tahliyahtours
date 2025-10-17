@@ -50,6 +50,6 @@ export default defineConfig({
         compress: true,
     },
     optimizeDeps: {
-        include: ['react', 'react-dom', 'motion/react', '@inertiajs/react'],
+        include: ['react', 'react-dom', 'framer-motion', '@inertiajs/react'],
     },
 });
