@@ -22,7 +22,8 @@ class SecurityHeaders
         $response->headers->set('X-Frame-Options', 'SAMEORIGIN'); // Changed from DENY
         $response->headers->set('X-XSS-Protection', '1; mode=block');
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
-        $response->headers->set('Permissions-Policy', 'geolocation=(), microphone=(), camera=()');
+        // Allow unload for Instagram SDK and other third-party scripts
+        $response->headers->set('Permissions-Policy', 'geolocation=(), microphone=(), camera=(), unload=*');
         
         // HSTS Header (uncomment when using HTTPS)
         // $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');

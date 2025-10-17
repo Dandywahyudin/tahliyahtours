@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useMemo, lazy, Suspense } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from "../Components/ui/Button";
 import BlurText from './BlurText';
 
