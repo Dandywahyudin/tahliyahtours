@@ -46,7 +46,7 @@ return (
             <div className="flex justify-between items-center">
                 <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
                     <div className="w-16 h-16 sm:w-16 sm:h-16 flex items-center justify-center">
-                        <img src="/images/logo.png" alt="TAHLIYAH Tours & Travel" className="object-contain w-full h-full scale-150" />
+                        <img src="/images/logo.webp" alt="TAHLIYAH Tours & Travel" className="object-contain w-full h-full scale-150" />
                     </div>
                     <div>
                     </div>

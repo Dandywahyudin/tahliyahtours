@@ -195,7 +195,7 @@ export default function AboutMe() {
   // Memoized TiltedCard to prevent re-renders
   const tiltedCard = useMemo(() => (
     <TiltedCard
-      imageSrc="/images/tahliyahtour.jpg"
+      imageSrc="/images/tahliyahtour.webp"
       altText="TAHLIYAH Tours & Travel"
       captionText="Tahliyah Tours & Travel"
       containerHeight="450px"

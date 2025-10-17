@@ -4,9 +4,9 @@ import { Button } from "../Components/ui/Button";
 import BlurText from './BlurText';
 
 // Lazy load images for better performance
-const image1 = '/images/caraousel2.jpeg';
-const image2 = '/images/caraousel1.png';
-const image3 = '/images/caraousel4.jpeg';
+const image1 = '/images/caraousel2.webp';
+const image2 = '/images/caraousel1.webp';
+const image3 = '/images/caraousel4.webp';
 
 const heroSlides = [
     {
@@ -185,7 +185,7 @@ const Carousel = () => {
                     {/* ASITA Logo */}
                     <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-1.5 sm:p-2 hover:bg-white/20 transition-all duration-300">
                       <img 
-                        src="/images/asita.jpeg" 
+                        src="/images/asita.webp" 
                         alt="ASITA" 
                         className="h-9 sm:h-11 lg:h-13 w-auto object-contain rounded-lg"
                         loading="lazy"
@@ -196,7 +196,7 @@ const Carousel = () => {
                     {/* APMHURI Logo */}
                     <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-1.5 sm:p-2 hover:bg-white/20 transition-all duration-300">
                       <img 
-                        src="/images/amphuri-logo.jpg" 
+                        src="/images/amphuri-logo.webp" 
                         alt="APMHURI" 
                         className="h-9 sm:h-11 lg:h-13 w-auto object-contain rounded-lg"
                         loading="lazy"

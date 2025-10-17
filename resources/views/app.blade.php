@@ -6,13 +6,30 @@
 
         <title inertia>{{ config('app.name', 'Tahliyah') }}</title>
 
-        <!-- Preload Critical Resources -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link rel="dns-prefetch" href="//fonts.bunny.net">
-        <link rel="preload" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" as="style">
+        <!-- DNS Prefetch untuk faster third-party connections -->
+        <link rel="dns-prefetch" href="https://fonts.bunny.net">
+        <link rel="dns-prefetch" href="https://www.instagram.com">
+        <link rel="dns-prefetch" href="https://www.google.com">
         
-        <!-- Fonts with display=swap for better performance -->
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <!-- Preconnect untuk critical resources -->
+        <link rel="preconnect" href="https://www.instagram.com" crossorigin>
+        <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>        <!-- Preload Critical Font (inline subset untuk instant render) -->
+        <style>
+            /* Critical font subset untuk instant text rendering */
+            @font-face {
+                font-family: 'figtree-fallback';
+                src: local('Arial'), local('Helvetica');
+                size-adjust: 105%;
+                ascent-override: 95%;
+                descent-override: 25%;
+                line-gap-override: 0%;
+            }
+            body { font-family: 'figtree-fallback', sans-serif; }
+        </style>
+        
+        <!-- Load full fonts asynchronously -->
+        <link rel="preload" href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"></noscript>
 
         <!-- SEO Meta Tags -->
         <meta name="description" content="TAHLIYAH Tours & Travel - Penyelenggara Perjalanan Ibadah Haji dan Umrah Terpercaya">
@@ -54,29 +71,55 @@
         <!-- Scripts -->
         @routes
         @viteReactRefresh
-        @vite(['resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
+        @vite(['resources/css/app.css', 'resources/js/app.jsx', "resources/js/Pages/{$page['component']}.jsx"])
         @inertiaHead
+        
+        <!-- Inline Critical CSS untuk instant render -->
+        <style>
+            /* Critical above-the-fold styles */
+            body{margin:0;padding:0;min-height:100vh;}
+            *{box-sizing:border-box;}
+            .font-sans{font-family:'figtree-fallback',sans-serif;}
+            .antialiased{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+        </style>
     </head>
     <body class="font-sans antialiased">
         @inertia
         
-        <!-- Service Worker Registration for PWA -->
+        <!-- Preload Critical Resources with High Priority -->
+        <link rel="preload" as="image" href="{{ asset('images/logo.png') }}" fetchpriority="high">
+        <link rel="preload" as="image" href="{{ asset('images/caraousel1.png') }}" fetchpriority="high">
+        
+        <!-- Service Worker Registration - Defer untuk tidak block rendering -->
         <script>
-            // Prevent browser extension interference
+            // Performance optimization: Defer non-critical scripts
+            window.addEventListener('load', function() {
+                // Register Service Worker
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('/sw.js').catch(function(error) {
+                        console.warn('SW registration failed:', error);
+                    });
+                }
+                
+                // Load Instagram SDK setelah page load (defer execution)
+                if (document.querySelector('[class*="instagram"]') || document.querySelector('.blockquote-footer')) {
+                    setTimeout(function() {
+                        var script = document.createElement('script');
+                        script.src = 'https://www.instagram.com/embed.js';
+                        script.async = true;
+                        script.defer = true;
+                        document.body.appendChild(script);
+                    }, 2000); // Delay 2 detik untuk prioritize critical rendering
+                }
+            });
+            
+            // Prevent browser extension errors from showing
             window.addEventListener('error', function(e) {
-                if (e.filename && e.filename.includes('contentScript.js')) {
+                if (e.filename && (e.filename.includes('contentScript.js') || e.filename.includes('extension'))) {
                     e.preventDefault();
                     return false;
                 }
-            });
-
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', function() {
-                    navigator.serviceWorker.register('/sw.js').catch(function(error) {
-                        console.log('SW registration failed');
-                    });
-                });
-            }
+            }, true);
         </script>
     </body>
 </html>
