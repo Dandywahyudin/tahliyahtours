@@ -19,14 +19,13 @@ class SecurityHeaders
 
         // Security Headers
         $response->headers->set('X-Content-Type-Options', 'nosniff');
-        $response->headers->set('X-Frame-Options', 'SAMEORIGIN'); // Changed from DENY
+        $response->headers->set('X-Frame-Options', 'SAMEORIGIN');
         $response->headers->set('X-XSS-Protection', '1; mode=block');
         $response->headers->set('Referrer-Policy', 'strict-origin-when-cross-origin');
-        // Allow unload for Instagram SDK and other third-party scripts
         $response->headers->set('Permissions-Policy', 'geolocation=(), microphone=(), camera=(), unload=*');
         
-        // Content Security Policy - ALWAYS ACTIVE untuk semua environment
-        // Ini memastikan Instagram & Google Maps bisa di-embed di production maupun development
+        // Content Security Policy - ALWAYS ACTIVE (untuk semua environment)
+        // Ini memastikan Instagram & Google Maps bisa di-embed
         $csp = "default-src 'self'; " .
                "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.instagram.com https://connect.facebook.net https://fonts.bunny.net https: http: blob: data:; " .
                "script-src-elem 'self' 'unsafe-inline' https://www.instagram.com https://connect.facebook.net https://fonts.bunny.net https: http: blob: data:; " .

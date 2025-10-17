@@ -1,21 +1,15 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: 'resources/js/app.jsx',
+            input: ['resources/css/app.css', 'resources/js/app.jsx'],
             refresh: true,
         }),
         react(),
     ],
-    resolve: {
-        alias: {
-            '@': resolve(__dirname, 'resources/js'),
-        },
-    },
     build: {
         // Optimizations for production
         minify: 'terser',
@@ -27,24 +21,20 @@ export default defineConfig({
         },
         rollupOptions: {
             output: {
-                manualChunks: (id) => {
-                    if (id.includes('node_modules')) {
-                        if (id.includes('react')) return 'react-vendor';
-                        if (id.includes('motion')) return 'motion-vendor';
-                        if (id.includes('@inertiajs')) return 'inertia-vendor';
-                        if (id.includes('framer-motion')) return 'motion-vendor';
-                        return 'vendor';
-                    }
-                },
-            },
+                manualChunks: {
+                    'react-vendor': ['react', 'react-dom'],
+                    'inertia-vendor': ['@inertiajs/react'],
+                    'motion-vendor': ['framer-motion']
+                }
+            }
         },
-        // Enable source maps for debugging but optimize for size
         sourcemap: false,
-        // Reduce chunk size warnings
         chunkSizeWarningLimit: 1000,
-        // Better compression
         cssCodeSplit: true,
         cssMinify: 'lightningcss',
+    },
+    resolve: {
+        dedupe: ['react', 'react-dom'] // Penting: deduplicate React untuk prevent error
     },
     server: {
         compress: true,

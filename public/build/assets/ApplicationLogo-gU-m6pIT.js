@@ -1,1 +1,0 @@
-import{j as e}from"./react-vendor-BuBbMVX7.js";function s(s){return e.jsx("div",{className:"flex items-center justify-center",children:e.jsx("img",{src:"/build/assets/logo-wmLpeQ0x.png",alt:"Tahliyah Tours",...s,className:"w-16 h-16 md:w-16 md:h-16 lg:w-20 lg:h-20 object-contain"})})}export{s as A};
