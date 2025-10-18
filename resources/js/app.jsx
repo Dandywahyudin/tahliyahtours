@@ -10,7 +10,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'TahliyahTours';
 // Simple image preloading function
 const preloadCriticalImages = () => {
   if (typeof window !== 'undefined') {
-    const imagesToPreload = ['/images/caraousel1.png', '/images/logo.png'];
+    const imagesToPreload = ['/images/caraousel1.webp', '/images/logo.webp'];
     imagesToPreload.forEach(src => {
       const link = document.createElement('link');
       link.rel = 'preload';

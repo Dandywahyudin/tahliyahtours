@@ -41,7 +41,7 @@
         <meta property="og:description" content="Penyelenggara Perjalanan Ibadah Haji dan Umrah Terpercaya">
         <meta property="og:type" content="website">
         <meta property="og:url" content="{{ url()->current() }}">
-        <meta property="og:image" content="{{ asset('images/logo.png') }}">
+        <meta property="og:image" content="{{ asset('images/logo.webp') }}">
         <meta property="og:image:width" content="1200">
         <meta property="og:image:height" content="630">
         <meta property="og:image:alt" content="TAHLIYAH Tours & Travel Logo">
@@ -51,13 +51,13 @@
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="{{ config('app.name', 'TAHLIYAH Tours & Travel') }}">
         <meta name="twitter:description" content="Penyelenggara Perjalanan Ibadah Haji dan Umrah Terpercaya">
-        <meta name="twitter:image" content="{{ asset('images/logo.png') }}">
+        <meta name="twitter:image" content="{{ asset('images/logo.webp') }}">
         <meta name="twitter:image:alt" content="TAHLIYAH Tours & Travel Logo">
         
         <!-- Favicon and Icons -->
-        <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}" sizes="32x32">
-        <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}" sizes="16x16">
-        <link rel="shortcut icon" href="{{ asset('images/logo.png') }}" type="image/png">
+        <link rel="icon" type="image/png" href="{{ asset('images/logo.webp') }}" sizes="32x32">
+        <link rel="icon" type="image/png" href="{{ asset('images/logo.webp') }}" sizes="16x16">
+        <link rel="shortcut icon" href="{{ asset('images/logo.webp') }}" type="image/webp">
 
         <!-- PWA Manifest -->
         <link rel="manifest" href="/manifest.json">
@@ -87,9 +87,8 @@
         @inertia
         
         <!-- Preload Critical Resources with High Priority -->
-        <link rel="preload" as="image" href="{{ asset('images/logo.png') }}" fetchpriority="high">
-        <link rel="preload" as="image" href="{{ asset('images/caraousel1.png') }}" fetchpriority="high">
-        
+        <link rel="preload" as="image" href="{{ asset('images/logo.webp') }}" fetchpriority="high">
+        <link rel="preload" as="image" href="{{ asset('images/caraousel1.webp') }}" fetchpriority="high">
         <!-- Service Worker Registration - Defer untuk tidak block rendering -->
         <script>
             // Performance optimization: Defer non-critical scripts
