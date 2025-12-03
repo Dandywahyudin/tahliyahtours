@@ -113,6 +113,7 @@ export default function Testimonials() {
                   frameBorder="0"
                   scrolling="no"
                   allowtransparency="true"
+                  sandbox="allow-scripts allow-same-origin allow-popups"
                   onLoad={handleIframeLoad}
                   title={`Testimonial ${currentIndex + 1}`}
                 ></iframe>

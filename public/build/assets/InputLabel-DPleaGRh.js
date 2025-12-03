@@ -1,1 +1,0 @@
-import{j as e}from"./motion-vendor-Ba-x9s8F.js";function t({value:t,className:a="",children:o,...r}){return e.jsx("label",{...r,className:"block text-sm font-medium text-gray-700 "+a,children:t||o})}export{t as I};

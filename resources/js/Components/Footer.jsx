@@ -111,6 +111,7 @@ return (
                             style={{ border: 0 }}
                             allowFullScreen=""
                             loading="lazy"
+                            sandbox="allow-same-origin allow-scripts allow-popups"
                             referrerPolicy="no-referrer-when-downgrade"
                             title="Lokasi Tahliyah Tours & Travel"
                         ></iframe>
